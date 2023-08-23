@@ -63,6 +63,9 @@ def translate_error(error_message):
     if re.search(r"Passport series and number is not a valid Russian passport series and number", error_message):
         return "Номер или серия паспорта заданы некорректно."
 
+    if re.search(r"Applicant phone and email are empty.", error_message):
+        return "Не заданы ни номер телефона ни e-mail."
+
     return error_message
 
 
