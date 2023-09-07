@@ -111,7 +111,7 @@ def find_error_begin(line):
                r"trying to import applicant with external ID '(\d+)'")
     match = re.search(pattern, line)
     if match:
-        return "*" + match.group(2) + "*"
+        return match.group(2)
 
 
 def find_error_cause(line):
