@@ -95,7 +95,7 @@ def get_responsible_recruiter_name(applicant_id):
     pass
 
 
-def get_all_errors_after_timestamp(file_path, timestamp_threshold, file_lines):
+def get_all_errors_after_timestamp(timestamp_threshold, file_lines):
     error_message = ""
     line_with_timestamp_found = False
     index = 1
@@ -129,7 +129,7 @@ def notify_about_errors_in_log(file_path, title):
         if last_timestamp:
 
             timestamp_threshold = get_timestamp_threshold(last_timestamp, THRESHOLD_IN_MINUTES)
-            result_message = get_all_errors_after_timestamp(file_path, timestamp_threshold, file_lines)
+            result_message = get_all_errors_after_timestamp(timestamp_threshold, file_lines)
             if result_message:
                 print(title + result_message)
                 telegram_bot_send_message(title + result_message)
