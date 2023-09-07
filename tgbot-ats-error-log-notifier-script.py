@@ -46,12 +46,13 @@ def get_all_chat_ids():
 
     response = requests.get(command)
     final = json.loads(response.text)
-    chat_id_dict = final['result']
+    if 'result' in final:
+        chat_id_dict = final['result']
 
-    for item in chat_id_dict:
-        if 'message' in item:
-            chat_id = str(item['message']['chat']['id'])
-            chat_ids.append(chat_id) if chat_id not in chat_ids else chat_ids
+        for item in chat_id_dict:
+            if 'message' in item:
+                chat_id = str(item['message']['chat']['id'])
+                chat_ids.append(chat_id) if chat_id not in chat_ids else chat_ids
 
 
 # Send message to telegram bot
