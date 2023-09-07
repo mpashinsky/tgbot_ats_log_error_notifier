@@ -14,16 +14,18 @@ THRESHOLD_IN_MINUTES = 3
 def get_responsible_user_name(applicant_id, stage_type):
 
     responsible_user_id = get_responsible_user_id(applicant_id, stage_type)
-    command = ('https://app.potok.io/api/v3/users/' + responsible_user_id + '.json?token=' + POTOK_TOKEN)
+    if responsible_user_id is not None:
+        command = ('https://app.potok.io/api/v3/users/' + str(responsible_user_id) + '.json?token=' + str(POTOK_TOKEN))
 
-    try:
-        response = requests.get(command)
-    except Exception:
-        return ""
+        try:
+            response = requests.get(command)
+        except Exception:
+            return ""
 
-    response_json = json.loads(response.text)
-    return response_json['name']
+        response_json = json.loads(response.text)
+        return response_json['name']
 
+    return "не найден"
 
 def get_responsible_user_id(applicant_id, stage_type):
     command = ('https://app.potok.io/api/v3/applicants/' + applicant_id + '.json?token=' + POTOK_TOKEN)
