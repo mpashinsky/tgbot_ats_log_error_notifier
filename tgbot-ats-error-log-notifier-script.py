@@ -66,6 +66,9 @@ def translate_error(error_message):
     if re.search(r"Applicant phone and email are empty.", error_message):
         return "Не заданы ни номер телефона ни e-mail."
 
+    if re.search(r"Phone is empty.", error_message):
+        return "Не заданы номер телефона."
+
     return error_message
 
 
