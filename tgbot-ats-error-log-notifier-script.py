@@ -11,6 +11,36 @@ chat_ids = ['450092386', '348438868', '1606360814', '2054961458', '2077591122', 
 THRESHOLD_IN_MINUTES = 3
 
 
+def get_responsible_user_name(applicant_id, stage_type):
+
+    responsible_user_id = get_responsible_user_id(applicant_id, stage_type)
+    command = ('https://app.potok.io/api/v3/users/' + responsible_user_id + '.json?token=' + POTOK_TOKEN)
+
+    try:
+        response = requests.get(command)
+    except Exception:
+        return ""
+
+    response_json = json.loads(response.text)
+    return response_json['name']
+
+
+def get_responsible_user_id(applicant_id, stage_type):
+    command = ('https://app.potok.io/api/v3/applicants/' + applicant_id + '.json?token=' + POTOK_TOKEN)
+
+    try:
+        response = requests.get(command)
+    except Exception:
+        return ""
+
+    responseJson = json.loads(response.text)
+    ajs_joins = responseJson['ajs_joins']
+
+    for ajs_join in ajs_joins:
+        if ajs_join['stage']['stage_type'] == stage_type:
+            return ajs_join['responsible_user_id']
+
+
 def get_all_chat_ids():
     command = ('https://api.telegram.org/bot' + BOT_TOKEN + '/getUpdates')
 
