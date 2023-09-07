@@ -27,6 +27,7 @@ def get_responsible_user_name(applicant_id, stage_type):
 
     return "не найден"
 
+
 def get_responsible_user_id(applicant_id, stage_type):
 
     if applicant_id is None or len(applicant_id) == 0:
