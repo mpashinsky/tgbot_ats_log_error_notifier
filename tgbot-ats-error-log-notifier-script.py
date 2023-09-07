@@ -6,6 +6,7 @@ import requests
 import time
 
 BOT_TOKEN = ''
+POTOK_TOKEN = ''
 chat_ids = ['450092386', '348438868', '1606360814', '2054961458', '2077591122', '2135127961', '1015753135', '1430112443']
 THRESHOLD_IN_MINUTES = 3
 
@@ -138,14 +139,15 @@ def notify_about_errors_in_log(file_path, title):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 5:
-        print("Usage: ats-error-notifier-script.py <token> <sb_file_path> <finalist_log_file_path> "
+    if len(sys.argv) != 6:
+        print("Usage: ats-error-notifier-script.py <telegram-bot-token> <potok-token> <sb_file_path> <finalist_log_file_path> "
               "<interval_in_minutes>")
         sys.exit(1)
 
     BOT_TOKEN = sys.argv[1]
-    sb_file_path = sys.argv[2]
-    finalist_log_file_path = sys.argv[3]
+    POTOK_TOKEN = sys.argv[2]
+    sb_file_path = sys.argv[3]
+    finalist_log_file_path = sys.argv[4]
 
     while True:
         get_all_chat_ids()
