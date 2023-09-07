@@ -33,8 +33,8 @@ def get_responsible_user_id(applicant_id, stage_type):
     except Exception:
         return ""
 
-    responseJson = json.loads(response.text)
-    ajs_joins = responseJson['ajs_joins']
+    response_json = json.loads(response.text)
+    ajs_joins = response_json['ajs_joins']
 
     for ajs_join in ajs_joins:
         if ajs_join['stage']['stage_type'] == stage_type:
