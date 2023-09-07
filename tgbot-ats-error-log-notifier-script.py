@@ -34,7 +34,7 @@ def telegram_bot_send_message(bot_message):
             pass
 
 
-def find_last_timestamp(file_path, file_lines):
+def find_last_timestamp(file_lines):
     last_timestamp = None
 
     for line in reversed(file_lines):
@@ -116,7 +116,7 @@ def notify_about_errors_in_log(file_path, title):
     with open(file_path, 'r') as file:
         file_lines = file.readlines()
 
-        last_timestamp = find_last_timestamp(file_path, file_lines)
+        last_timestamp = find_last_timestamp(file_lines)
 
         if last_timestamp:
 
