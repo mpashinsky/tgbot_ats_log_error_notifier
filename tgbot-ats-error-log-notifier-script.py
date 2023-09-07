@@ -148,6 +148,7 @@ if __name__ == "__main__":
     POTOK_TOKEN = sys.argv[2]
     sb_file_path = sys.argv[3]
     finalist_log_file_path = sys.argv[4]
+    send_notification_interval_in_minutes = sys.argv[5]
 
     while True:
         get_all_chat_ids()
@@ -155,4 +156,4 @@ if __name__ == "__main__":
         time.sleep(1)
         notify_about_errors_in_log(sb_file_path, "*Проблемные кандидаты, ожидающие проверки СБ*:\n\n")
         notify_about_errors_in_log(finalist_log_file_path, "*Проблемные кандидаты, ожидающие передачи финалиста*:\n\n")
-        time.sleep(float(sys.argv[4]) * 60)
+        time.sleep(float(send_notification_interval_in_minutes) * 60)
