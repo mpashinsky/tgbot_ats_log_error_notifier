@@ -126,7 +126,7 @@ def get_responsible_recruiter_name(applicant_id):
     pass
 
 
-def get_all_errors_after_timestamp(timestamp_threshold, file_lines):
+def get_all_errors_after_timestamp(timestamp_threshold, file_lines, stage_type):
     error_message = ""
     line_with_timestamp_found = False
     index = 1
@@ -135,7 +135,7 @@ def get_all_errors_after_timestamp(timestamp_threshold, file_lines):
         if line_with_timestamp_found:
             applicant_id = find_error_begin(line)
             if applicant_id is not None:
-                responsible_recruiter_name = get_responsible_recruiter_name(applicant_id)
+                responsible_recruiter_name = get_responsible_user_name(applicant_id, stage_type)
                 error_message = error_message + str(index) + ". Ответственный: " + responsible_recruiter_name + ". " + applicant_id
                 index = index + 1
             else:
@@ -151,7 +151,7 @@ def get_all_errors_after_timestamp(timestamp_threshold, file_lines):
     return error_message
 
 
-def notify_about_errors_in_log(file_path, title):
+def notify_about_errors_in_log(file_path, title, stage_type):
     with open(file_path, 'r') as file:
         file_lines = file.readlines()
 
@@ -160,7 +160,7 @@ def notify_about_errors_in_log(file_path, title):
         if last_timestamp:
 
             timestamp_threshold = get_timestamp_threshold(last_timestamp, THRESHOLD_IN_MINUTES)
-            result_message = get_all_errors_after_timestamp(timestamp_threshold, file_lines)
+            result_message = get_all_errors_after_timestamp(timestamp_threshold, file_lines, stage_type)
             if result_message:
                 print(title + result_message)
                 telegram_bot_send_message(title + result_message)
@@ -184,6 +184,6 @@ if __name__ == "__main__":
         get_all_chat_ids()
         telegram_bot_send_message("============================")
         time.sleep(1)
-        notify_about_errors_in_log(sb_file_path, "*Проблемные кандидаты, ожидающие проверки СБ*:\n\n")
-        notify_about_errors_in_log(finalist_log_file_path, "*Проблемные кандидаты, ожидающие передачи финалиста*:\n\n")
+        notify_about_errors_in_log(sb_file_path, "*Проблемные кандидаты, ожидающие проверки СБ*:\n\n", "sb")
+        notify_about_errors_in_log(finalist_log_file_path, "*Проблемные кандидаты, ожидающие передачи финалиста*:\n\n", "push_to_external_system")
         time.sleep(float(send_notification_interval_in_minutes) * 60)
