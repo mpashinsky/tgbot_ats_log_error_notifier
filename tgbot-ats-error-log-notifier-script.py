@@ -28,6 +28,10 @@ def get_responsible_user_name(applicant_id, stage_type):
     return "не найден"
 
 def get_responsible_user_id(applicant_id, stage_type):
+
+    if applicant_id is None or len(applicant_id) == 0:
+        return None
+
     command = ('https://app.potok.io/api/v3/applicants/' + applicant_id + '.json?token=' + str(POTOK_TOKEN))
 
     try:
