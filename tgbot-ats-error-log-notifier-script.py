@@ -56,13 +56,15 @@ def get_all_chat_ids():
 
 # Send message to telegram bot
 def telegram_bot_send_message(bot_message):
-    for chat_id in chat_ids:
-        send_text = ('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage?chat_id=' + chat_id
-                     + '&parse_mode=Markdown&text=' + bot_message)
-        try:
-            requests.get(send_text)
-        except Exception:
-            pass
+
+    if len(BOT_TOKEN) > 2:
+        for chat_id in chat_ids:
+            send_text = ('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage?chat_id=' + chat_id
+                         + '&parse_mode=Markdown&text=' + bot_message)
+            try:
+                requests.get(send_text)
+            except Exception:
+                pass
 
 
 def find_last_timestamp(file_lines):
