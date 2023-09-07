@@ -91,6 +91,10 @@ def get_timestamp_threshold(last_timestamp, threshold_in_minutes):
     return last_timestamp - timedelta(minutes=threshold_in_minutes)
 
 
+def get_responsible_recruiter_name(applicant_id):
+    pass
+
+
 def get_all_errors_after_timestamp(file_path, timestamp_threshold, file_lines):
     error_message = ""
     line_with_timestamp_found = False
@@ -98,14 +102,15 @@ def get_all_errors_after_timestamp(file_path, timestamp_threshold, file_lines):
 
     for line in file_lines:
         if line_with_timestamp_found:
-            error = find_error_begin(line)
-            if error is not None:
-                error_message = error_message + str(index) + ". " + error
+            applicant_id = find_error_begin(line)
+            if applicant_id is not None:
+                responsible_recruiter_name = get_responsible_recruiter_name(applicant_id)
+                error_message = error_message + str(index) + ". Ответственный: " + responsible_recruiter_name + ". " + applicant_id
                 index = index + 1
             else:
-                error = find_error_cause(line)
-                if error is not None:
-                    error_message = error_message + error
+                error_cause = find_error_cause(line)
+                if error_cause is not None:
+                    error_message = error_message + error_cause
         else:
             match = re.search(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}),\d{3}', line)
             if match:
