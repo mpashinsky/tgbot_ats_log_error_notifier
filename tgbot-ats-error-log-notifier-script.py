@@ -88,8 +88,7 @@ def find_last_timestamp(file_lines):
 
 
 def translate_error(error_message):
-    if (re.search(r"Ajs join ID not present for applicant", error_message)
-            or re.search(r"Applicant job ID not present in applicant data", error_message)):
+    if re.search(r"Ajs join with stage type ID", error_message):
         return "Нет привязки к вакансии или вакансия заархивирована."
 
     if re.search(r"ATS security form not present for applicant", error_message):
