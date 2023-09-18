@@ -109,6 +109,9 @@ def translate_error(error_message):
     if re.search(r"Phone is empty.", error_message):
         return "Не заданы номер телефона."
 
+    if re.search(r"Applicant person name is not correct", error_message):
+        return "Некорректные символы в ФИО кандидата."
+
     return error_message
 
 
