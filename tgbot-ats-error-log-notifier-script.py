@@ -51,7 +51,10 @@ def get_responsible_user_id(applicant_id, stage_type):
 def get_all_chat_ids():
     command = ('https://api.telegram.org/bot' + BOT_TOKEN + '/getUpdates')
 
-    response = requests.get(command)
+    try:
+        response = requests.get(command)
+    except Exception:
+        return
     final = json.loads(response.text)
     if 'result' in final:
         chat_id_dict = final['result']
