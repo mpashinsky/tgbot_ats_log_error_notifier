@@ -91,6 +91,12 @@ def find_last_timestamp(file_lines):
 
 
 def translate_error(error_message):
+    if re.search(r"Applicant firstname is empty.", error_message):
+        return "Имя не задано."
+
+    if re.search(r"Applicant lastname is empty.", error_message):
+        return "Фамилия не задана."
+
     if re.search(r"Ajs join with stage type ID", error_message):
         return "Нет привязки к вакансии или вакансия заархивирована."
 
@@ -106,14 +112,32 @@ def translate_error(error_message):
     if re.search(r"Passport series and number is not a valid Russian passport series and number", error_message):
         return "Номер или серия паспорта заданы некорректно."
 
+    if re.search(r"Passport date of issue is empty", error_message):
+        return "Дата выдачи паспорта не задана."
+
+    if re.search(r"Passport date of issue is later than current date", error_message):
+        return "Дата выдачи паспорта позже текущей даты."
+
+    if re.search(r"Passport date of issue is before than birthdate", error_message):
+        return "Дата выдачи паспорта раньше даты рождения."
+
     if re.search(r"Applicant phone and email are empty.", error_message):
         return "Не заданы ни номер телефона ни e-mail."
 
     if re.search(r"Phone is empty.", error_message):
         return "Не заданы номер телефона."
 
+    if re.search(r"is not a valid mobile phone number", error_message):
+        return "Номер телефона задан некорректно."
+
     if re.search(r"Applicant person name is not correct", error_message):
         return "Некорректные символы в ФИО кандидата."
+
+    if re.search(r"Birthdate is empty", error_message):
+        return "Не задана дата рождения."
+
+    if re.search(r"Birthdate is later than current date", error_message):
+        return "Дата рождения позже текущей даты."
 
     return error_message
 
