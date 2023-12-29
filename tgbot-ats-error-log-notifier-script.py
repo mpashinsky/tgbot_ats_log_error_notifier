@@ -40,6 +40,9 @@ def get_responsible_user_id(applicant_id, stage_type):
     except Exception:
         return ""
 
+    if response.text is None:
+        return None
+
     response_json = json.loads(response.text)
     ajs_joins = response_json['ajs_joins']
 
@@ -125,7 +128,7 @@ def translate_error(error_message):
         return "Не заданы ни номер телефона ни e-mail."
 
     if re.search(r"Phone is empty.", error_message):
-        return "Не заданы номер телефона."
+        return "Не задан номер телефона."
 
     if re.search(r"is not a valid mobile phone number", error_message):
         return "Номер телефона задан некорректно."
