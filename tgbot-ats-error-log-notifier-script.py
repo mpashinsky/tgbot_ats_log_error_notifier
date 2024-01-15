@@ -22,6 +22,9 @@ def get_responsible_user_name(applicant_id, stage_type):
         except Exception:
             return ""
 
+        if response.text is None:
+            return "не найден"
+        
         response_json = json.loads(response.text)
         return response_json['name']
 
@@ -58,6 +61,10 @@ def get_all_chat_ids():
         response = requests.get(command)
     except Exception:
         return
+    
+    if response.text is None:
+        return
+
     final = json.loads(response.text)
     if 'result' in final:
         chat_id_dict = final['result']
