@@ -43,7 +43,7 @@ def get_responsible_user_id(applicant_id, stage_type):
     except Exception:
         return ""
 
-    if response.text is None:
+    if response is None or response.text is None:
         return None
 
     response_json = json.loads(response.text)
