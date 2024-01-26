@@ -22,10 +22,17 @@ def get_responsible_user_name(applicant_id, stage_type):
         except Exception:
             return ""
 
-        if response is None or response.text is None:
+        if response is None or response == '':
             return "не найден"
-        
-        response_json = json.loads(response.text)
+
+        response_text = getattr(response, 'text', '')
+        if response_text == '':
+            return "не найден"
+
+        response_json = json.loads(response_text)
+        if 'name' not in response_json:
+            return "не найден"
+
         return response_json['name']
 
     return "не найден"
@@ -43,10 +50,17 @@ def get_responsible_user_id(applicant_id, stage_type):
     except Exception:
         return ""
 
-    if response is None or response.text is None:
+    if response is None or response == '':
         return None
 
-    response_json = json.loads(response.text)
+    response_text = getattr(response, 'text', '')
+    if response_text == '':
+        return None
+
+    response_json = json.loads(response_text)
+    if 'ajs_joins' not in response_json:
+        return None
+
     ajs_joins = response_json['ajs_joins']
 
     for ajs_join in ajs_joins:
@@ -62,10 +76,14 @@ def get_all_chat_ids():
     except Exception:
         return
     
-    if response is None or response.text is None:
+    if response is None or response == '':
         return
 
-    final = json.loads(response.text)
+    response_text = getattr(response, 'text', '')
+    if response_text == '':
+        return
+
+    final = json.loads(response_text)
     if 'result' in final:
         chat_id_dict = final['result']
 
