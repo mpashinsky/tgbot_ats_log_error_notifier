@@ -126,7 +126,9 @@ def translate_error(error_message):
         return "Фамилия не задана."
 
     if re.search(r"Ajs join with stage type ID", error_message):
-        return "Нет привязки к вакансии или вакансия заархивирована."
+        return ("Связь с вакансией на нужном этапе не найдена у кандидата. "
+                "Для проверки СБ - Проверка СБ, для финалсита - Оформление. "
+                "Этап был изменён вручную или вакансия заархивирована.")
 
     if re.search(r"ATS security form not present for applicant", error_message):
         return "Нет анкеты или она заполнена на другой вакансии."
