@@ -126,9 +126,7 @@ def translate_error(error_message):
         return "Фамилия не задана."
 
     if re.search(r"Ajs join with stage type ID", error_message):
-        return ("Связь с вакансией на нужном этапе не найдена у кандидата. "
-                "Для проверки СБ - Проверка СБ, для финалсита - Оформление. "
-                "Этап был изменён вручную или вакансия заархивирована.")
+        return ("Нет связи с вакансией.")
 
     if re.search(r"ATS security form not present for applicant", error_message):
         return "Нет анкеты или она заполнена на другой вакансии."
@@ -258,4 +256,9 @@ if __name__ == "__main__":
         time.sleep(1)
         notify_about_errors_in_log(sb_file_path, "*Проблемные кандидаты, ожидающие проверки СБ*:\n\n", "sb")
         notify_about_errors_in_log(finalist_log_file_path, "*Проблемные кандидаты, ожидающие передачи финалиста*:\n\n", "push_to_external_system")
+        telegram_bot_send_message(
+            "* Если ошибка: нет связи с вакансией. То связь на нужном этапе не найдена у кандидата. "
+            "Связь должна быть на этапе: Для проверки СБ - Проверка СБ, для финалиста - Оформление. "
+            "Ошибка возникает, если этап был изменён вручную или вакансия заархивирована."
+        )
         time.sleep(float(send_notification_interval_in_minutes) * 60)
