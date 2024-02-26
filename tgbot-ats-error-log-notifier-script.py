@@ -20,22 +20,22 @@ def get_responsible_user_name(applicant_id, stage_type):
         try:
             response = requests.get(command)
         except Exception:
-            return ""
+            return "-"
 
         if response is None or response == '':
-            return "не найден"
+            return "-"
 
         response_text = getattr(response, 'text', '')
         if response_text == '':
-            return "не найден"
+            return "-н"
 
         response_json = json.loads(response_text)
         if 'name' not in response_json:
-            return "не найден"
+            return "-"
 
         return response_json['name']
 
-    return "не найден"
+    return "-"
 
 
 def get_responsible_user_id(applicant_id, stage_type):
