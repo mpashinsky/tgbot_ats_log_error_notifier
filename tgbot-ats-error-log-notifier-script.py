@@ -169,6 +169,9 @@ def translate_error(error_message):
     if re.search(r"Birthdate is later than current date", error_message):
         return "Дата рождения позже текущей даты."
 
+    if re.search(r"is not a valid email", error_message):
+        return "Некорректный email"
+
     return error_message
 
 
