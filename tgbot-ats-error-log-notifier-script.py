@@ -26,8 +26,8 @@ def get_responsible_user_name(applicant_id, stage_type):
             return "-"
 
         response_text = getattr(response, 'text', '')
-        if response_text == '':
-            return "-н"
+        if response_text is None or response_text == '':
+            return "-"
 
         response_json = json.loads(response_text)
         if 'name' not in response_json:
@@ -54,7 +54,7 @@ def get_responsible_user_id(applicant_id, stage_type):
         return None
 
     response_text = getattr(response, 'text', '')
-    if response_text == '':
+    if response_text is None or response_text == '':
         return None
 
     response_json = json.loads(response_text)
@@ -80,7 +80,7 @@ def get_all_chat_ids():
         return
 
     response_text = getattr(response, 'text', '')
-    if response_text == '':
+    if response_text is None or response_text == '':
         return
 
     final = json.loads(response_text)
