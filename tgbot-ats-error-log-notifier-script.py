@@ -158,7 +158,7 @@ def translate_error(error_message):
     if re.search(r"is not a valid mobile phone number", error_message):
         return "Номер телефона задан некорректно."
 
-    if re.search(r"Applicant person name is not correct", error_message):
+    if re.search(r"Applicant russian full name is not correct", error_message):
         return "Некорректные символы в ФИО кандидата."
 
     if re.search(r"Birthdate is empty", error_message):
